@@ -1,0 +1,34 @@
+products:
+- name: "Vegemite Scroll"
+  code: "VS5"
+  packs:
+  - size: 3
+    price: 6.99
+    currency: "USD"
+  - size: 5
+    price: 8.99
+    currency: "USD"
+- name: "Blueberry Muffin"
+  code: "MB11"
+  packs:
+  - size: 2
+    price: 9.95
+    currency: "USD"
+  - size: 5
+    price: 16.95
+    currency: "USD"
+  - size: 8
+    price: 24.95
+    currency: "USD"
+- name: "Croissant"
+  code: "CF"
+  packs:
+  - size: 3
+    price: 5.95
+    currency: "USD"
+  - size: 5
+    price: 9.95
+    currency: "USD"
+  - size: 9
+    price: 16.99
+    currency: "USD"
