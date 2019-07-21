@@ -1,4 +1,19 @@
+### Compile and Run:
 
+You need the maven build tool to compile and run the project.
+
+Compile:
+```bash
+mvn clean install
+```
+
+Run:
+```bash
+mvn exec:java
+```
+
+
+### Sample Output:
 ```
 Enter number of orders: 10
 Enter product code: VS5
