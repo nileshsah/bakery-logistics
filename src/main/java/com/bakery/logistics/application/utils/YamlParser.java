@@ -1,6 +1,6 @@
 package com.bakery.logistics.application.utils;
 
-import com.bakery.logistics.application.exceptions.YamlParsingException;
+import com.bakery.logistics.application.exception.YamlParsingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 

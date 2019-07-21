@@ -23,26 +23,26 @@ public class InventorySerializationTest {
                 "Vegemite Scroll",
                 "VS5",
                 Arrays.asList(
-                    new Pack(3L, 6.99, CurrencyCode.USD),
-                    new Pack(5L, 8.99, CurrencyCode.USD)
+                    new Pack(3, 6.99, CurrencyCode.USD),
+                    new Pack(5, 8.99, CurrencyCode.USD)
                 )
             ),
             new Product(
                 "Blueberry Muffin",
                 "MB11",
                 Arrays.asList(
-                    new Pack(2L, 9.95, CurrencyCode.USD),
-                    new Pack(5L, 16.95, CurrencyCode.USD),
-                    new Pack(8L, 24.95, CurrencyCode.USD)
+                    new Pack(2, 9.95, CurrencyCode.USD),
+                    new Pack(5, 16.95, CurrencyCode.USD),
+                    new Pack(8, 24.95, CurrencyCode.USD)
                 )
             ),
             new Product(
                 "Croissant",
                 "CF",
                 Arrays.asList(
-                    new Pack(3L, 5.95, CurrencyCode.USD),
-                    new Pack(5L, 9.95, CurrencyCode.USD),
-                    new Pack(9L, 16.99, CurrencyCode.USD)
+                    new Pack(3, 5.95, CurrencyCode.USD),
+                    new Pack(5, 9.95, CurrencyCode.USD),
+                    new Pack(9, 16.99, CurrencyCode.USD)
                 )
             )
         )

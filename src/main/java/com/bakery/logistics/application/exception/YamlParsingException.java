@@ -1,4 +1,4 @@
-package com.bakery.logistics.application.exceptions;
+package com.bakery.logistics.application.exception;
 
 public class YamlParsingException extends RuntimeException {
 
