@@ -56,7 +56,7 @@ public class InventorySerializationTest {
     Assert.assertEquals(expectedYamlString, actualYamlString);
   }
 
-  public String getResourceFileAsString(String fileName) {
+  private String getResourceFileAsString(String fileName) {
     InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
     BufferedReader reader = new BufferedReader(new InputStreamReader(is));
     return reader.lines().collect(Collectors.joining(System.lineSeparator()));

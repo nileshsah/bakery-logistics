@@ -1,10 +1,14 @@
 package com.bakery.logistics.domain.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Pack {
-  private final Long size;
-  private final Double price;
-  private final CurrencyCode currency;
+  private Long size;
+  private Double price;
+  private CurrencyCode currency;
 }
