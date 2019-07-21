@@ -25,20 +25,28 @@ public class ConsoleRunner implements Runnable {
 
     Scanner in = new Scanner(System.in);
     System.out.print("Enter number of orders: ");
+    System.out.flush();
+
     Integer orders = in.nextInt();
 
     IntStream.range(1, orders + 1).forEach(orderId -> {
           System.out.print("Enter product code: ");
+          System.out.flush();
+
           String productCode = in.next();
 
           System.out.print("Enter order quantity: ");
+          System.out.flush();
+
           Integer orderQuantity = in.nextInt();
 
           try {
             OrderResponse response = orderService.placeOrder(productCode, orderQuantity);
             System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(response));
+            System.out.flush();
           } catch (BusinessException ex) {
             System.err.println(">>> " + ex.getMessage());
+            System.err.flush();
           } catch (JsonProcessingException e) {
             // TODO: Handle the exception properly
             e.printStackTrace();
@@ -47,7 +55,7 @@ public class ConsoleRunner implements Runnable {
     );
   }
 
-  private String getResourceFilePath(String filename)  {
+  private String getResourceFilePath(String filename) {
     File file = null;
     try {
       URL res = getClass().getClassLoader().getResource(filename);
