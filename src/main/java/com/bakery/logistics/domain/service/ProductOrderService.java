@@ -27,12 +27,15 @@ public class ProductOrderService {
     final Product selectedProduct = inventory.getProductByCode(productCode).orElseThrow(
         () -> new ProductNotFoundException("No product found for given product code: " + productCode)
     );
+    if (quantity == 0) {
+      throw new UnsupportedOrderException("You can't order 0 quantity");
+    }
     return new OrderResponse(selectedProduct, findOptimizedPacks(selectedProduct, quantity));
   }
 
   private Map<Pack, Integer> findOptimizedPacks(Product product, Integer quantity) {
     final Map<Integer, StateValue> quantityStateCache = new HashMap<>();
-    Optional<Integer> optimizedPackCount = getMinimumPackCount(product, quantity, quantityStateCache);
+    Optional<Integer> optimizedPackCount = solveForMinimumPackCount(product, quantity, quantityStateCache);
 
     if (!optimizedPackCount.isPresent()) {
       throw new UnsupportedOrderException("The given order quantity cannot be completely broken down into available packs");
@@ -64,6 +67,51 @@ public class ProductOrderService {
     return packs;
   }
 
+  private Optional<Integer> solveForMinimumPackCount(Product product, Integer requiredQuantity, Map<Integer, StateValue> cache) {
+    cache.put(0, new StateValue(Optional.empty(), Optional.of(0)));
+
+    for (Integer currentQuantity = 1; currentQuantity <= requiredQuantity; currentQuantity++) {
+      Optional<Pack> packToUse = Optional.empty();
+      Optional<Integer> minimumPacksForCurrentState = Optional.empty();
+
+      for (Pack currentPack : product.getPacks()) {
+        if (currentPack.getSize() > currentQuantity) {
+          continue;
+        }
+
+        Integer previousState = currentQuantity - currentPack.getSize();
+        Optional<Integer> returnValue = Optional.empty();
+
+        if (cache.containsKey(previousState)) {
+          returnValue = cache.get(previousState).getMinimumPacks();
+        }
+        if (!returnValue.isPresent()) {
+          continue;
+        }
+
+        if (minimumPacksForCurrentState.isPresent() && minimumPacksForCurrentState.get() > returnValue.get()) {
+          minimumPacksForCurrentState = returnValue;
+          packToUse = Optional.of(currentPack);
+        } else if (!minimumPacksForCurrentState.isPresent()) {
+          minimumPacksForCurrentState = returnValue;
+          packToUse = Optional.of(currentPack);
+        }
+      }
+
+      StateValue currentStateValue = new StateValue(packToUse, minimumPacksForCurrentState.map(value -> value + 1));
+      cache.put(currentQuantity, currentStateValue);
+    }
+
+    if (cache.containsKey(requiredQuantity)) {
+      return cache.get(requiredQuantity).getMinimumPacks();
+    }
+
+    return Optional.empty();
+  }
+
+  /**
+   * @deprecated In favor of an iterative solver `solveForMinimumPackCount` to avoid StackOverFlow exceptions for large inputs
+   */
   private Optional<Integer> getMinimumPackCount(Product product, Integer quantity, Map<Integer, StateValue> cache) {
     if (quantity.equals(0)) {
       return Optional.of(0);
